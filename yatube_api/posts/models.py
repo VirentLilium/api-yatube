@@ -13,12 +13,20 @@ class Group(models.Model):
         slug (slug): Слаг группы.
         description (str): Описание группы.
     """
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
-    description = models.TextField()
+    title = models.CharField(
+        max_length=200,
+        verbose_name='Название группы'
+    )
+    slug = models.SlugField(
+        unique=True,
+        verbose_name='Slug группы'
+    )
+    description = models.TextField(
+        verbose_name='Описание группы'
+    )
 
     def __str__(self):
-        return self.title
+        return self.title[:30]
 
 
 class Post(models.Model):
@@ -32,23 +40,37 @@ class Post(models.Model):
         image (ImageField | None): Опциональное изображение поста.
         group (Group | None): Группа, опциональное поле.
     """
-    text = models.TextField()
+    text = models.TextField(
+        verbose_name='Текст поста'
+    )
     pub_date = models.DateTimeField(
-        'Дата публикации', auto_now_add=True
+        auto_now_add=True,
+        verbose_name='Дата публикации'
     )
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='posts'
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Автор поста'
     )
     image = models.ImageField(
-        upload_to='posts/', null=True, blank=True
+        upload_to='posts/',
+        null=True,
+        blank=True,
+        verbose_name='Изображение'
     )
     group = models.ForeignKey(
-        Group, on_delete=models.SET_NULL,
-        related_name='posts', blank=True, null=True
+        Group,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name='Группа поста'
     )
 
+    class Meta:
+        default_related_name = 'posts'
+
     def __str__(self):
-        return self.text
+        return self.text[:30]
 
 
 class Comment(models.Model):
@@ -62,12 +84,26 @@ class Comment(models.Model):
         created (datetime): Дата и время добавления комментария.
     """
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='comments'
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Автор комментария'
     )
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name='comments'
+        Post,
+        on_delete=models.CASCADE,
+        verbose_name='Пост'
     )
-    text = models.TextField()
+    text = models.TextField(
+        verbose_name='Текст комментария'
+    )
     created = models.DateTimeField(
-        'Дата добавления', auto_now_add=True, db_index=True
+        auto_now_add=True,
+        db_index=True,
+        verbose_name='Дата добавления комментария'
     )
+
+    class Meta:
+        default_related_name = 'comments'
+
+    def __str__(self):
+        return f'{self.text[:30]} | {self.author.username}, пост "{self.post}"'

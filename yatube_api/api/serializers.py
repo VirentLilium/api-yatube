@@ -41,17 +41,14 @@ class PostSerializer(serializers.ModelSerializer):
         group: группа поста (опционально, допустима передача null)
         pub_date: дата публикации
     """
-    author = serializers.StringRelatedField(read_only=True)
-    image = serializers.ImageField(required=False)
-    group = serializers.PrimaryKeyRelatedField(
-        queryset=Group.objects.all(),
-        required=False,
-        allow_null=True
+    author = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='username'
     )
 
     class Meta:
         model = Post
-        fields = ('id', 'text', 'author', 'image', 'group', 'pub_date')
+        fields = '__all__'
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -71,9 +68,12 @@ class CommentSerializer(serializers.ModelSerializer):
         text: текст комментария
         created: дата создания
     """
-    author = serializers.StringRelatedField(read_only=True)
-    post = serializers.PrimaryKeyRelatedField(read_only=True)
+    author = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='username'
+    )
 
     class Meta:
         model = Comment
         fields = ('id', 'author', 'post', 'text', 'created')
+        read_only_fields = ('post',)
