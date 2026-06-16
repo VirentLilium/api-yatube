@@ -1,3 +1,5 @@
+"""URL-маршруты API приложения."""
+
 from django.urls import include, path
 from rest_framework import routers
 from rest_framework.authtoken.views import obtain_auth_token
