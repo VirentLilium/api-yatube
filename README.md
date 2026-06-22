@@ -1,4 +1,4 @@
-# 🚀 API Yatube
+# API Yatube
 
 Учебный проект REST API для социальной платформы Yatube.
 
@@ -6,20 +6,7 @@
 
 ---
 
-## 🎯 Цель проекта
-
-Цель проекта — отработать создание REST API на Django REST Framework:
-
-* сериализация данных;
-* ViewSet;
-* роутинг;
-* аутентификация по токену;
-* права доступа;
-* CRUD.
-
----
-
-## 🛠️ Стек технологий
+## Стек технологий
 
 * Python
 * Django
@@ -30,7 +17,7 @@
 
 ---
 
-## 📌 Возможности API
+## Возможности API
 
 API позволяет:
 
@@ -47,7 +34,7 @@ API позволяет:
 
 ---
 
-## 🔐 Права доступа
+## Права доступа
 
 * Анонимные пользователи могут только читать данные.
 * Авторизованные пользователи могут создавать публикации и комментарии.
@@ -60,29 +47,36 @@ API позволяет:
 ```text
 api-yatube/
 ├── .gitignore
-├── yatube_api/
-│   ├── api/
-│   │   ├── apps.py
-│   │   ├── permissions.py
-│   │   ├── serializers.py
-│   │   ├── urls.py
-│   │   └── views.py
-│   ├── posts/
-│   │   ├── migrations/
-│   │   ├── admin.py
-│   │   ├── apps.py
-│   │   └── models.py
-│   ├── yatube_api/
-│   │   ├── settings.py
-│   │   ├── urls.py
-│   │   └── wsgi.py
-│   └── manage.py
-├── tests/
-├── postman_collection/
+├── LICENSE
+├── README.md
+├── pytest.ini
 ├── requirements.txt
 ├── setup.cfg
-├── pytest.ini
-└── README.md
+├── .postman/
+├── postman/
+├── postman_collection/
+├── tests/
+└── yatube_api/
+    ├── manage.py
+    ├── api/
+    │   ├── __init__.py
+    │   ├── apps.py
+    │   ├── permissions.py
+    │   ├── serializers.py
+    │   ├── urls.py
+    │   └── views.py
+    ├── posts/
+    │   ├── __init__.py
+    │   ├── admin.py
+    │   ├── apps.py
+    │   ├── models.py
+    │   └── migrations/
+    │
+    └── yatube_api/
+        ├── __init__.py
+        ├── settings.py
+        ├── urls.py
+        └── wsgi.py
 ```
 
 ---
@@ -147,7 +141,7 @@ python manage.py runserver
 
 ---
 
-## 🔑 Получение токена
+## Получение токена
 
 Для получения токена нужно отправить POST-запрос:
 
@@ -180,7 +174,7 @@ Authorization: Token your_token
 
 ---
 
-## 📡 Основные эндпоинты
+## Основные эндпоинты
 
 ### Публикации
 
@@ -211,7 +205,7 @@ PATCH /api/v1/posts/{post_id}/comments/{comment_id}/
 DELETE /api/v1/posts/{post_id}/comments/{comment_id}/
 ```
 
-## 🧪 Запуск тестов
+## Запуск тестов
 
 Из корневой директории проекта:
 
@@ -221,7 +215,7 @@ pytest
 
 ---
 
-## 📬 Postman
+## Postman
 
 В проекте есть готовая коллекция Postman:
 
